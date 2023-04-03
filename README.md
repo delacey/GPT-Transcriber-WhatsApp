@@ -71,4 +71,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Other Comments
 
-I started out wanting to use OpenAI's whisper for the transcription piece of this project. Whisper has very good transcription quality, but I found that it would take a long time, even with their lighter models, and would often hang. Deepgram seems to be much faster and stable: you'll get your summary in one or two minutes after you send the m4a file in, while with Whisper you could be looking at ten minutes, or more, or never. I find this to be a useful timesaver and hope others do as well. 
+I started out wanting to use OpenAI's whisper for the transcription piece of this project. Whisper has very good transcription quality, but I found that it would take a long time, even with their lighter models, and would often hang. Deepgram seems to be much faster and stable: you'll get your summary in one or two minutes after you send the m4a file in, while with Whisper you could be looking at ten minutes, or more, or never. I find this project to be a useful timesaver and hope others do as well. 
