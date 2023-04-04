@@ -7,7 +7,7 @@ This project is designed to provide an efficient solution to transcribe and summ
 ## Features
 
 - Receive audio files through WhatsApp
-- Transcribe audio using the Whisper API
+- Transcribe audio using Whisper 
 - Summarize transcriptions with OpenAI GPT-4
 - Send summaries back to the sender via WhatsApp
 
