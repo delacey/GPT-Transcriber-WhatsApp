@@ -1,13 +1,13 @@
 # GPT-Transcriber for WhatsApp
 
-Allows someone to send an m4a file via WhatsApp to a specified phone number via Twilio, at which point the file is transcribed by Deepgram and summarized using GPT4. The summary is then sent back to the original sender.
+Allows someone to send an m4a file via WhatsApp to a specified phone number via Twilio, at which point the file is transcribed by Whisper and summarized using GPT4. The summary is then sent back to the original sender.
 
 This project is designed to provide an efficient solution to transcribe and summarize audio from meetings, Zoom calls, or regular phone calls, and then share the summaries with team members. The project alleviates the need for manual note-taking and ensures that meeting summaries are comprehensive and accurate.
 
 ## Features
 
 - Receive audio files through WhatsApp
-- Transcribe audio using the Deepgram API
+- Transcribe audio using the Whisper API
 - Summarize transcriptions with OpenAI GPT-4
 - Send summaries back to the sender via WhatsApp
 
@@ -23,8 +23,7 @@ These instructions will help you set up and deploy the project on Railway.
 1. A Twilio account with a WhatsApp sandbox
 2. A Railway account
 3. A Google Cloud Storage account
-4. A Deepgram API key
-5. An OpenAI API key with GPT4 access (specify another GPT model in the summarizer.py script if you prefer)
+4. An OpenAI API key with GPT4 access (specify another GPT model in the summarizer.py script if you prefer)
 
 ### Deployment on Railway
 
@@ -40,7 +39,7 @@ cd GPT-Transcriber
 
 railway init
 
-4. Add the `GOOGLE_APPLICATION_CREDENTIALS_CONTENT` environment variable in the Railway dashboard. This should be set to the content of your Google Cloud Storage JSON key file. Make sure to replace the Twilio, Deepgram, and OpenAI API keys in the code with your own.
+4. Add the `GOOGLE_APPLICATION_CREDENTIALS_CONTENT` environment variable in the Railway dashboard. This should be set to the content of your Google Cloud Storage JSON key file. Make sure to replace the Twilio and OpenAI API key placeholders in the code with your own.
 
 5. Edit the `app.py` file to replace the placeholder Twilio phone number (`'whatsapp:+14151111111'`) with your own Twilio phone number.
 
@@ -64,11 +63,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Acknowledgments
 
-- Deepgram for providing an accurate and fast transcription service
+- Whisper for providing an extremely high quality transcription service
 - OpenAI GPT-4 for generating high-quality summaries
 - Twilio for facilitating WhatsApp communication
 - Railway for easy deployment and hosting
-
-## Other Comments
-
-I started out wanting to use OpenAI's whisper for the transcription piece of this project. Whisper has very good transcription quality, but I found that it would take a long time, even with their lighter models, and would often hang. Deepgram seems to be much faster and stable: you'll get your summary in one or two minutes after you send the m4a file in, while with Whisper you could be looking at ten minutes, or more, or never. I find this project to be a useful timesaver and hope others do as well. 
