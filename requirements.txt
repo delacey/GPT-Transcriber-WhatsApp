@@ -6,7 +6,6 @@ uvicorn==0.21.1
 openai==0.27.2
 google-cloud-storage
 google-cloud-storage-transfer
-deepgram-sdk==2.3.0
 
 
 

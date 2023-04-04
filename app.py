@@ -5,7 +5,7 @@ from flask import Flask, request, Response
 from twilio.twiml.messaging_response import MessagingResponse
 from twilio.rest import Client
 from google.cloud import storage
-from transcriber import transcribe_audio_sync
+from transcriber import transcribe_audio
 
 # Replace with your Twilio account SID and auth token
 TWILIO_ACCOUNT_SID = 'your SID here'
@@ -40,7 +40,7 @@ def handle_incoming_attachment(request):
 
         
         # Get the summary from the transcribe_audio function
-        summary = transcribe_audio_sync(bucket_name, destination_blob_name)
+        summary = transcribe_audio(bucket_name, destination_blob_name)
 
         # Send the summary back to the sender as a WhatsApp message
         print(f"Sending summary back to: {sender}")

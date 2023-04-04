@@ -1,11 +1,10 @@
 import os
-import asyncio
-from deepgram import Deepgram
+import openai
 from google.cloud import storage
 from summarizer import main as summarizer_main
 
-#your deepgram API key here
-dg_client = Deepgram('your deepgram API key here')
+# Set your OpenAI API key
+openai.api_key = "your openai API key here"
 
 def download_blob(bucket_name, source_blob_name, destination_file_name):
     storage_client = storage.Client()
@@ -17,19 +16,15 @@ def download_blob(bucket_name, source_blob_name, destination_file_name):
 
     print(f"File {source_blob_name} downloaded to {destination_file_name}.")
 
-async def transcribe_audio(bucket_name, source_blob_name):
+def transcribe_audio(bucket_name, source_blob_name):
     # Download the audio file to a temporary location
     tmp_file_path = f"/tmp/{source_blob_name}"
     download_blob(bucket_name, source_blob_name, tmp_file_path)
 
-    # Transcribe the audio using Deepgram
-    with open(tmp_file_path, 'rb') as audio:
-        audio_data = audio.read()
-
-    source = {'buffer': audio_data, 'mimetype': 'audio/m4a'}
-    response = await dg_client.transcription.prerecorded(source, {'punctuate': True})
-    transcript = response['results']['channels'][0]['alternatives'][0]['transcript']
-
+    # Transcribe the audio
+    with open(tmp_file_path, 'rb') as audio_file:
+        result = openai.Audio.transcribe("whisper-1", audio_file)
+    transcript = result["text"]
     print("finished transcribing, calling summarizer")
 
     # Delete the temporary file
@@ -47,7 +42,4 @@ async def transcribe_audio(bucket_name, source_blob_name):
     summary = summarizer_main(transcript_file_path, sender)
     
     return summary
-
-def transcribe_audio_sync(bucket_name, source_blob_name):
-    return asyncio.run(transcribe_audio(bucket_name, source_blob_name))
 
